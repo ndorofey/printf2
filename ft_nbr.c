@@ -130,11 +130,9 @@ int	ft_putunsnbr(unsigned int nbr)
 	int	count;
 
 	count = ft_countuns(nbr);
-	if ((nbr < 10) && ft_putchar(nbr + 48) < 0)
+	if (nbr > 9 && ft_putunsnbr(nbr / 10) < 0)
 		return (-1);
-	else if (nbr > 9 && ft_putunsnbr(nbr / 10) < 0)
-		return (-1);
-	if (ft_putunsnbr(nbr % 10) < 0)
+	if (ft_putchar(nbr % 10 + '0') < 0)
 		return (-1);
 	return (count);
 }

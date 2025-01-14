@@ -17,8 +17,8 @@ int main()
 	/*char c = 'j';
 	ft_printf("%%c\n", c);
 	printf("%%c\n", c);*/
-	ft_printf("noOriginal %d\n", ft_printf("number: %d\ncharacter: %c\n un %u\n", 2147483649, 'A', 255));
-	printf("siOriginal %d\n", printf("number: %d\ncharacter: %c\nun %u\n", 2147483649, 'A', 255));
+	ft_printf("noOriginal %d\n", ft_printf("number: %d\ncharacter: %c\n, %u\n, %x\n", -2147483648, 'A', 255, 255));
+	printf("siOriginal %d\n", printf("number: %d\ncharacter: %c\n, %u\n, %x\n", -2147483648, 'A', 255, 255));
 
 	return (0);
 }
