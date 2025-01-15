@@ -6,7 +6,7 @@
 /*   By: nikitadorofeychik <nikitadorofeychik@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 21:15:55 by nikitadorof       #+#    #+#             */
-/*   Updated: 2025/01/13 19:20:59 by ndorofey         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:27:53 by ndorofey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ int	ft_puthexa(unsigned int nbr, char word)
 		return (-1);
 	if (!ft_putchar(hexa[nbr % 16]))
 		return (-1);
-	/*if (word == 'x' && ft_putchar(hexa[nbr % 16]) < 0)
-		return (-1);
-	else if (word == 'X' && ft_putchar(hexas[nbr % 16] < 0))
-		return (-1);*/
 	return (count);
 }
 
@@ -68,8 +64,6 @@ int	ft_putvoid(unsigned long nbr)
 
 	count = ft_counterlong(nbr);
 	hexa = "0123456789abcdef";
-	if (nbr == 0)
-		return (ft_putchar('0'));
 	if (nbr > 15 && ft_putvoid(nbr / 16) < 0)
 		return (-1);
 	if (ft_putchar(hexa[nbr % 16]) < 0)

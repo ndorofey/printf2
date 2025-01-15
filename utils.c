@@ -6,7 +6,7 @@
 /*   By: nikitadorofeychik <nikitadorofeychik@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 16:40:28 by nikitadorof       #+#    #+#             */
-/*   Updated: 2025/01/09 21:26:57 by ndorofey         ###   ########.fr       */
+/*   Updated: 2025/01/14 22:43:21 by ndorofey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	ft_putstr(char *str)
 {
 	int	i;
 
+	if (str == NULL)
+		return (ft_putstr("(null)"));
 	i = 0;
 	while (str[i] != '\0')
 	{

@@ -6,16 +6,32 @@
 /*   By: nikitadorofeychik <nikitadorofeychik@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:58:24 by nikitadorof       #+#    #+#             */
-/*   Updated: 2025/01/13 19:10:00 by ndorofey         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:32:37 by ndorofey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_selector(va_list args, char word)
+static int	ft_process_args(const char *format, va_list args, int count);
+static int	ft_selector(va_list args, char word);
 
+static int	easter_egg_2(unsigned long hexa)
 {
-	int	i;
+	int				i;
+
+	i = 0;
+	if (hexa == 0)
+		return (ft_putstr("(nil)"));
+	i += ft_putstr("0x");
+	if (i < 0)
+		return (-1);
+	i += ft_putvoid(hexa);
+	return (i);
+}
+
+static int	ft_selector(va_list args, char word)
+{
+	int				i;
 
 	i = 0;
 	if (word == 'c')
@@ -29,41 +45,51 @@ static int	ft_selector(va_list args, char word)
 	else if (word == 'x' || word == 'X')
 		i += ft_puthexa(va_arg(args, unsigned int), word);
 	else if (word == 'p')
-	{
-		i += ft_putstr("0x");
-		if (i < 0)
-			return (-1);
-		i += ft_putvoid(va_arg(args, unsigned long));
-	}
+		i += easter_egg_2(va_arg(args, unsigned long));
 	else if (word == '%')
-		i += ft_putchar(('%'));
+		i += ft_putchar('%');
 	else
 		i += ft_putchar(word);
 	return (i);
 }
 
-int	ft_printf(char const *place, ...)
+static int	ft_process_args(const char *format, va_list args, int count)
 {
-	int		size;
+	int		control;
 	int		i;
-	va_list	args;
 
-	size = 0;
+	control = 0;
 	i = 0;
-	va_start(args, place);
-	while (place[i])
+	while (format[i])
 	{
-		if (place[i] == '%')
+		if (format[i] == '%')
 		{
-			size += ft_selector(args, place[i + 1]);
-			i++;
+			control = ft_selector(args, format[i + 1]);
+			if (control == -1)
+				return (control);
+			count += control;
+			i += 2;
 		}
 		else
-			size += ft_putchar(place[i]);
-		if (size < 0)
-			return (-1);
-		i++;
+		{
+			(count += ft_putchar(format[i]));
+			i++;
+		}
 	}
-	va_end (args);
-	return (size);
+	va_end(args);
+	return (count);
+}
+
+int	ft_printf(char const *format, ...)
+{
+	va_list			args;
+	int				count;
+
+	count = 0;
+	if (!format || format[0] == '\0')
+		return (-1);
+	va_start(args, format);
+	count = ft_process_args(format, args, count);
+	va_end(args);
+	return (count);
 }
